@@ -6,7 +6,8 @@ function fetcher(url) {
 }
 
 const Home: NextPage = () => {
-  const { data, error } = useSWR("/api/test?search=batman", fetcher);
+  const { data, error } = useSWR("/api/search?name=batman", fetcher);
+
   return <div>{JSON.stringify(data)}</div>;
 };
 
