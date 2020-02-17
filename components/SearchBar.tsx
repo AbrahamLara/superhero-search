@@ -12,16 +12,15 @@ const useStyles = makeStyles((theme: Theme) =>
     search: {
       display: "flex",
       position: "relative",
+      overflow: "hidden",
+      borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       "&:hover": {
         backgroundColor: fade(theme.palette.common.white, 0.25)
       },
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto"
-      },
-      maxWidth: "500px"
+      [theme.breakpoints.down("xs")]: {
+        borderRadius: 0
+      }
     },
     inputRoot: {
       color: "inherit"
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchBar = () => {
+const SearchBar = (props: any) => {
   const classes = useStyles();
 
   return (
@@ -54,8 +53,11 @@ const SearchBar = () => {
         <SearchIcon />
       </div>
       <InputBase
-        classes={{ root: classes.inputRoot, input: classes.inputInput }}
-        placeholder="Superhero..."
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput
+        }}
+        placeholder="Superhero"
         inputProps={{ "aria-label": "search" }}
       />
     </div>
