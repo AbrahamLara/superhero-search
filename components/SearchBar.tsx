@@ -6,6 +6,7 @@ import {
   fade,
   InputBase
 } from "@material-ui/core";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,20 +48,34 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = () => {
   const classes = useStyles();
+  const [search, setSearch] = useState("");
+  const inputRef: any = React.createRef();
+
+  const handleChange = (e: any) => setSearch(e.target.value);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    inputRef.current.blur();
+    setSearch("");
+  };
 
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
-      <InputBase
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput
-        }}
-        placeholder="Superhero..."
-        inputProps={{ "aria-label": "search" }}
-      />
+      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <InputBase
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput
+          }}
+          inputRef={inputRef}
+          value={search}
+          onChange={handleChange}
+          placeholder="Superhero..."
+          inputProps={{ "aria-label": "search" }}
+        />
+      </form>
     </div>
   );
 };
