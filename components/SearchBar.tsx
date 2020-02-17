@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     inputRoot: {
-      color: "inherit"
+      color: "inherit",
+      width: "100%"
     },
     inputInput: {
       padding: theme.spacing(1.5, 1, 1.5, 7),
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("md")]: {
-        width: 200,
         padding: theme.spacing(1, 1, 1, 7)
       }
     },
