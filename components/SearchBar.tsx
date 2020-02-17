@@ -26,11 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "inherit"
     },
     inputInput: {
-      padding: theme.spacing(1, 1, 1, 7),
+      padding: theme.spacing(1.5, 1, 1.5, 7),
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("md")]: {
-        width: 200
+        width: 200,
+        padding: theme.spacing(1, 1, 1, 7)
       }
     },
     searchIcon: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchBar = (props: any) => {
+const SearchBar = () => {
   const classes = useStyles();
 
   return (
@@ -57,7 +58,7 @@ const SearchBar = (props: any) => {
           root: classes.inputRoot,
           input: classes.inputInput
         }}
-        placeholder="Superhero"
+        placeholder="Superhero..."
         inputProps={{ "aria-label": "search" }}
       />
     </div>

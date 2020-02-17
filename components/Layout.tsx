@@ -7,12 +7,9 @@ import {
   Theme,
   makeStyles,
   createStyles,
-  useMediaQuery,
   Link
 } from "@material-ui/core";
 import SearchBar from "./Searchbar";
-import MenuIcon from "@material-ui/icons/Menu";
-import React, { useState } from "react";
 import NextLink from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       [theme.breakpoints.down("xs")]: {
-        justifyContent: "space-bewteen"
+        justifyContent: "space-between",
+        padding: theme.spacing(1, 0, 1, 0)
       }
     }
   })
@@ -53,12 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout(props: any) {
   const classes = useStyles();
-  const matches = useMediaQuery("(min-width:768px)");
-  const [open, setOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setOpen(!open);
-  };
 
   return (
     <div>
