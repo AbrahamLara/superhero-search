@@ -9,7 +9,7 @@ import {
   createStyles,
   Link
 } from "@material-ui/core";
-import SearchBar from "./Searchbar";
+import SearchBar from "./SearchBar";
 import NextLink from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
