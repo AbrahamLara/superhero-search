@@ -7,6 +7,8 @@ import {
   InputBase
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { newSearch, clearSearch } from "../actions/search";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchBar = () => {
+const SearchBar = props => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const inputRef: any = React.createRef();
@@ -55,6 +57,7 @@ const SearchBar = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     inputRef.current.blur();
+    props.newSearch(search);
     setSearch("");
   };
 
@@ -80,4 +83,11 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+function mapStateToProps({ search }) {
+  return { search };
+}
+
+export default connect(mapStateToProps, {
+  clearSearch,
+  newSearch
+})(SearchBar);

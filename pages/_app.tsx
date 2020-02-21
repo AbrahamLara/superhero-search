@@ -12,6 +12,14 @@ import { Provider } from "react-redux";
 import { fromJS } from "immutable";
 
 class MyApp extends App<{ store: any }> {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps = Component.getInitialProps
+      ? await Component.getInitialProps(ctx)
+      : {};
+
+    return { pageProps };
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -34,18 +42,15 @@ class MyApp extends App<{ store: any }> {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Layout>
-            <Provider store={store}>
+          <Provider store={store}>
+            <Layout>
               <Component {...pageProps} />
-            </Provider>
-          </Layout>
+            </Layout>
+          </Provider>
         </ThemeProvider>
       </React.Fragment>
     );
   }
 }
 
-export default withRedux(makeStore, {
-  serializeState: (state: any) => state.toJS(),
-  deserializeState: (state: any) => fromJS(state)
-})(MyApp);
+export default withRedux(makeStore)(MyApp);
