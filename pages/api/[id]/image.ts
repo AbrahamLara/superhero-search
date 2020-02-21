@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const id = req.query.id;
 
     const response = await axios.get(
-      `https://superheroapi.com/api/${API_KEY}/${id}/powerstats`
+      `https://superheroapi.com/api/${API_KEY}/${id}/image`
     );
 
     res.json({ data: response.data });

@@ -6,8 +6,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import "typeface-roboto";
 import Layout from "../components/Layout";
+import { makeStore } from "../store";
+import withRedux from "next-redux-wrapper";
+import { Provider } from "react-redux";
+import { fromJS } from "immutable";
 
-export default class MyApp extends App {
+class MyApp extends App<{ store: any }> {
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -17,7 +21,7 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
       <React.Fragment>
@@ -31,10 +35,17 @@ export default class MyApp extends App {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Layout>
-            <Component {...pageProps} />
+            <Provider store={store}>
+              <Component {...pageProps} />
+            </Provider>
           </Layout>
         </ThemeProvider>
       </React.Fragment>
     );
   }
 }
+
+export default withRedux(makeStore, {
+  serializeState: (state: any) => state.toJS(),
+  deserializeState: (state: any) => fromJS(state)
+})(MyApp);
