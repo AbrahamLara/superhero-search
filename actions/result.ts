@@ -10,10 +10,10 @@ export function loadingResult(): AnyAction {
   };
 }
 
-export function loadedResult(resulT: Array<any>): AnyAction {
+export function loadedResult(result: Array<any>): AnyAction {
   return {
     type: LOADED_RESULT,
-    resulT
+    result
   };
 }
 
