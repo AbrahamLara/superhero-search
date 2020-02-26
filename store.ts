@@ -4,7 +4,7 @@ import middleware from "./middleware";
 
 const initialState = {
   search: "",
-  results: { loading: false, results: null }
+  results: { loading: false, data: null }
 };
 
 export const makeStore = (state: any = initialState) => {
