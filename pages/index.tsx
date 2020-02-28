@@ -6,11 +6,11 @@ import {
   Typography,
   CircularProgress,
   makeStyles,
-  createStyles,
-  Theme
+  createStyles
 } from "@material-ui/core";
+import HeroCard from "../components/HeroCard";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
@@ -56,9 +56,11 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
           <Typography variant="h5">
             {`Results for: ${data.data["results-for"]}`}
           </Typography>
-          {data.data.results.map(data => (
-            <img src={data.image.url} />
-          ))}
+          <div>
+            {data.data.results.map(data => (
+              <HeroCard key={data.id} hero={data} />
+            ))}
+          </div>
         </Fragment>
       ) : (
         <Fragment>
