@@ -6,19 +6,36 @@ import {
   Typography,
   CircularProgress,
   makeStyles,
-  createStyles
+  createStyles,
+  Theme
 } from "@material-ui/core";
 import HeroCard from "../components/HeroCard";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
       justifyContent: "center",
-      marginTop: "20px"
+      marginTop: 20
     },
     typographyRoot: {
-      marginTop: "15px"
+      marginTop: 15
+    },
+    heroCard: {
+      marginBottom: 15,
+      "&:last-child": {
+        marginBottom: 0
+      },
+      [theme.breakpoints.up("sm")]: {
+        margin: 10
+      }
+    },
+    heroContainer: {
+      [theme.breakpoints.up("sm")]: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center"
+      }
     }
   })
 );
@@ -54,11 +71,17 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
       {data ? (
         <Fragment>
           <Typography variant="h5">
-            {`Results for: ${data.data["results-for"]}`}
+            <strong>Results for: </strong>
+            {data.data["results-for"]}
           </Typography>
-          <div>
+          <hr />
+          <div className={classes.heroContainer}>
             {data.data.results.map(data => (
-              <HeroCard key={data.id} hero={data} />
+              <HeroCard
+                key={data.id}
+                className={classes.heroCard}
+                hero={data}
+              />
             ))}
           </div>
         </Fragment>
