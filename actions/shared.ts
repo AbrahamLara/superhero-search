@@ -16,4 +16,5 @@ export const fetchResults = () => (dispatch, getState) => {
   Axios.get(`/api/search?name=${name}`).then(data => {
     dispatch(loadResults(data.data));
   });
+  // TODO: Add catch method
 };
