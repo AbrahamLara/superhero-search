@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
       verticalAlign: "center",
-      height: "100%",
+      height: 300,
       fontSize: "1.5em",
       [theme.breakpoints.up("sm")]: {
         width: 300
