@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heroCard: {
       marginBottom: 15,
-      "&:last-child": {
-        marginBottom: 0
-      },
       [theme.breakpoints.up("sm")]: {
         margin: 10
       }
