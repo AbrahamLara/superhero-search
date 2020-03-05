@@ -41,11 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Home: NextPage = ({ search, results, fetchResults }: any) => {
   const classes = useStyles();
-  const [state, setState] = useState({ start: 0, end: 10 });
-  const { start, end } = state;
+  const router = useRouter();
+  const page = Number(router.query.page) || 0;
+  const end = page * 10;
+  const start = end - 10;
   const data = results.data;
   const response = data && data.data.response;
-  const router = useRouter();
 
   if (search) fetchResults();
 
@@ -62,27 +63,19 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
   }
 
   if (results.loading) {
-    // return (
-    //   <div className={classes.root}>
-    //     <CircularProgress />
-    //   </div>
-    // );
+    return (
+      <div className={classes.root}>
+        <CircularProgress />
+      </div>
+    );
   }
-  console.log(router.query);
 
   // if (data && response === "success" && !router.query.page) {
-  // router.push('/?page=1');
+  //   router.push("/?page=1");
   // }
 
   const handleChange = (page: number) => {
-    const end = page * 10;
-    const start = end - 10;
-
-    setState({
-      ...state,
-      start,
-      end
-    });
+    router.push(`/?page=${page}`);
   };
 
   return (
@@ -130,10 +123,6 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
 function mapStateToProps(state) {
   return state;
 }
-
-Home.getInitialProps = async ({ req }: any) => {
-  return { query: req.query };
-};
 
 export default connect(mapStateToProps, {
   fetchResults

@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { newSearch, clearSearch } from "../actions/search";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,12 +53,14 @@ const SearchBar = props => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const inputRef: any = React.createRef();
+  const router = useRouter();
 
   const handleChange = (e: any) => setSearch(e.target.value);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     inputRef.current.blur();
     props.newSearch(search);
+    router.push(`/?page=1`);
     setSearch("");
   };
 
