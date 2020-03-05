@@ -13,8 +13,8 @@ const useStyles = makeStyles(() =>
 
 const Paginator = ({ size, onChange }: any) => {
   const classes = useStyles();
-  const remainder = size % 10;
-  let count = Math.floor(size - remainder) / 10;
+  const remainder = size % 12;
+  let count = Math.floor(size - remainder) / 12;
 
   if (remainder) {
     count += 1;

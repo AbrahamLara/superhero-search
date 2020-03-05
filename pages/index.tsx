@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { connect } from "react-redux";
 import { fetchResults } from "../actions/shared";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import {
   Typography,
   CircularProgress,
@@ -43,8 +43,8 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
   const classes = useStyles();
   const router = useRouter();
   const page = Number(router.query.page) || 0;
-  const end = page * 10;
-  const start = end - 10;
+  const end = page * 12;
+  const start = end - 12;
   const data = results.data;
   const response = data && data.data.response;
 
@@ -69,10 +69,6 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
       </div>
     );
   }
-
-  // if (data && response === "success" && !router.query.page) {
-  //   router.push("/?page=1");
-  // }
 
   const handleChange = (page: number) => {
     router.push(`/?page=${page}`);
