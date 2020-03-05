@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { connect } from "react-redux";
 import { fetchResults } from "../actions/shared";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import {
   Typography,
   CircularProgress,
@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import HeroCard from "../components/HeroCard";
 import Paginator from "../components/Paginator";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,12 +40,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Home: NextPage = ({ search, results, fetchResults }: any) => {
-  const data = results.data;
   const classes = useStyles();
+  const [state, setState] = useState({ start: 0, end: 10 });
+  const { start, end } = state;
+  const data = results.data;
+  const response = data && data.data.response;
+  const router = useRouter();
 
   if (search) fetchResults();
 
-  if (data && data.data.response === "error") {
+  if (data && response === "error") {
     return (
       <Typography
         classes={{ root: classes.typographyRoot }}
@@ -57,12 +62,28 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
   }
 
   if (results.loading) {
-    return (
-      <div className={classes.root}>
-        <CircularProgress />
-      </div>
-    );
+    // return (
+    //   <div className={classes.root}>
+    //     <CircularProgress />
+    //   </div>
+    // );
   }
+  console.log(router.query);
+
+  // if (data && response === "success" && !router.query.page) {
+  // router.push('/?page=1');
+  // }
+
+  const handleChange = (page: number) => {
+    const end = page * 10;
+    const start = end - 10;
+
+    setState({
+      ...state,
+      start,
+      end
+    });
+  };
 
   return (
     <div>
@@ -74,7 +95,7 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
           </Typography>
           <hr />
           <div className={classes.heroContainer}>
-            {data.data.results.map(data => (
+            {data.data.results.slice(start, end).map(data => (
               <HeroCard
                 key={data.id}
                 className={classes.heroCard}
@@ -82,7 +103,7 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
               />
             ))}
           </div>
-          <Paginator />
+          <Paginator onChange={handleChange} />
         </Fragment>
       ) : (
         <Fragment>
@@ -109,6 +130,10 @@ const Home: NextPage = ({ search, results, fetchResults }: any) => {
 function mapStateToProps(state) {
   return state;
 }
+
+Home.getInitialProps = async ({ req }: any) => {
+  return { query: req.query };
+};
 
 export default connect(mapStateToProps, {
   fetchResults
