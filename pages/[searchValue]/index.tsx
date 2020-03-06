@@ -48,8 +48,8 @@ const SearchPage: NextPage = ({
 }: any) => {
   const classes = useStyles();
 
+  const [page, setPage] = useState(1);
   const router = useRouter();
-  const page = Number(router.query.page);
   const end = page * 10;
   const start = end - 10;
 
@@ -85,8 +85,9 @@ const SearchPage: NextPage = ({
     );
   }
 
-  const handleChange = (page: number) => {
-    router.push(`/${searchValue}?page=${page}`);
+  const handleChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -101,7 +102,7 @@ const SearchPage: NextPage = ({
           <HeroCard key={data.id} className={classes.heroCard} hero={data} />
         ))}
       </div>
-      <Paginator onChange={handleChange} page={page} />
+      <Paginator onChange={handleChange} />
     </Fragment>
   );
 };

@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import { Typography, makeStyles, createStyles, Theme } from "@material-ui/core";
+import { Typography, makeStyles, createStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     typographyRoot: {
       marginTop: 15
