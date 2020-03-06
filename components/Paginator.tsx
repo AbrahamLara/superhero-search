@@ -11,10 +11,10 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const Paginator = ({ size, onChange }: any) => {
+const Paginator = ({ size, onChange, page }: any) => {
   const classes = useStyles();
-  const remainder = size % 12;
-  let count = Math.floor(size - remainder) / 12;
+  const remainder = size % 10;
+  let count = Math.floor(size - remainder) / 10;
 
   if (remainder) {
     count += 1;
@@ -27,6 +27,7 @@ const Paginator = ({ size, onChange }: any) => {
       variant="outlined"
       color="primary"
       size="large"
+      page={page}
       onChange={(_: any, page: number) => onChange(page)}
     />
   );

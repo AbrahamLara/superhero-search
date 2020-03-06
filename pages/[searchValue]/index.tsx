@@ -47,12 +47,15 @@ const SearchPage: NextPage = ({
   newSearch
 }: any) => {
   const classes = useStyles();
+
   const router = useRouter();
-  const data = results.data;
-  const searchValue = router.query.searchValue;
   const page = Number(router.query.page);
   const end = page * 10;
   const start = end - 10;
+
+  const data = results.data;
+  const response = data && data.data.response;
+  const searchValue = router.query.searchValue;
 
   if (!results.loading && !data) {
     if (!search) {
@@ -62,6 +65,18 @@ const SearchPage: NextPage = ({
     }
   }
 
+  if (response === "error") {
+    return (
+      <Typography
+        classes={{ root: classes.typographyRoot }}
+        variant="h6"
+        align="center"
+      >
+        {data.data.error}
+      </Typography>
+    );
+  }
+
   if (!data) {
     return (
       <div className={classes.root}>
@@ -69,6 +84,10 @@ const SearchPage: NextPage = ({
       </div>
     );
   }
+
+  const handleChange = (page: number) => {
+    router.push(`/${searchValue}?page=${page}`);
+  };
 
   return (
     <Fragment>
@@ -82,6 +101,7 @@ const SearchPage: NextPage = ({
           <HeroCard key={data.id} className={classes.heroCard} hero={data} />
         ))}
       </div>
+      <Paginator onChange={handleChange} page={page} />
     </Fragment>
   );
 };
