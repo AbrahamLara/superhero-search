@@ -60,7 +60,7 @@ const SearchBar = props => {
     e.preventDefault();
     inputRef.current.blur();
     props.newSearch(search);
-    router.push(`/${search}`);
+    router.push(`/search/${search}`);
     setSearch("");
   };
 
