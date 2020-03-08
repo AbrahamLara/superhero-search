@@ -9,8 +9,14 @@ import Layout from "../components/Layout";
 import { makeStore } from "../store";
 import withRedux from "next-redux-wrapper";
 import { Provider } from "react-redux";
-import { fromJS } from "immutable";
+import { Snackbar, IconButton, Button } from "@material-ui/core";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import CloseIcon from "@material-ui/icons/Close";
+import { clearMessage } from "../actions/msg";
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 class MyApp extends App<{ store: any }> {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
@@ -28,8 +34,18 @@ class MyApp extends App<{ store: any }> {
     }
   }
 
+  handleClose = (_, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.props.store.dispatch(clearMessage());
+  };
+
   render() {
     const { Component, pageProps, store } = this.props;
+
+    const open = store.msg;
 
     return (
       <React.Fragment>
@@ -44,6 +60,31 @@ class MyApp extends App<{ store: any }> {
           <CssBaseline />
           <Provider store={store}>
             <Layout>
+              <Snackbar
+                open={open}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                action={
+                  <React.Fragment>
+                    <Button
+                      color="secondary"
+                      size="small"
+                      onClick={this.handleClose}
+                    >
+                      UNDO
+                    </Button>
+                    <IconButton
+                      size="small"
+                      aria-label="close"
+                      color="inherit"
+                      onClick={this.handleClose}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
+                  </React.Fragment>
+                }
+              >
+                <Alert severity="error">This is an error message!</Alert>
+              </Snackbar>
               <Component {...pageProps} />
             </Layout>
           </Provider>
