@@ -59,9 +59,11 @@ const SearchBar = props => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     inputRef.current.blur();
-    props.newSearch(search);
-    router.push(`/search/${search}`);
-    setSearch("");
+    if (search) {
+      props.newSearch(search);
+      router.push(`/search/${search}`);
+      setSearch("");
+    }
   };
 
   return (

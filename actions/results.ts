@@ -1,14 +1,7 @@
 import { AnyAction } from "redux";
 
-export const LOADING_RESULTS = "LOADING_RESULTS";
 export const LOAD_RESULTS = "LOAD_RESULTS";
 export const CLEAR_RESULTS = "CLEAR_RESULTS";
-
-export function loadingResults(): AnyAction {
-  return {
-    type: LOADING_RESULTS
-  };
-}
 
 export function loadResults(results: any): AnyAction {
   return {

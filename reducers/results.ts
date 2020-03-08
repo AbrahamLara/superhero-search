@@ -1,35 +1,12 @@
 import { AnyAction } from "redux";
-import {
-  LOADING_RESULTS,
-  LOAD_RESULTS,
-  CLEAR_RESULTS
-} from "../actions/results";
+import { LOAD_RESULTS, CLEAR_RESULTS } from "../actions/results";
 
-let initialState = {
-  loading: false,
-  data: null
-};
-
-export default function results(
-  state: any = initialState,
-  action: AnyAction
-): any {
+export default function results(state: any = null, action: AnyAction): any {
   switch (action.type) {
-    case LOADING_RESULTS:
-      return {
-        ...state,
-        loading: true
-      };
     case LOAD_RESULTS:
-      return {
-        loading: false,
-        data: action.results
-      };
+      return action.results;
     case CLEAR_RESULTS:
-      return {
-        loading: false,
-        data: null
-      };
+      return null;
     default:
       return state;
   }

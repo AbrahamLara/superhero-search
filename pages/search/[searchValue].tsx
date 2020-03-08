@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchPage: NextPage = ({
   search,
   results,
+  loading,
   fetchResults,
   newSearch
 }: any) => {
@@ -60,11 +61,10 @@ const SearchPage: NextPage = ({
   const end = page * 20;
   const start = end - 20;
 
-  const data = results.data;
-  const response = data && data.data.response;
+  const response = results && results.data.response;
   const searchValue = router.query.searchValue;
 
-  if (!results.loading && !data) {
+  if (!loading && !results) {
     if (!search) {
       newSearch(searchValue);
     } else {
@@ -79,12 +79,12 @@ const SearchPage: NextPage = ({
         variant="h6"
         align="center"
       >
-        {data.data.error}
+        {results.data.error}
       </Typography>
     );
   }
 
-  if (!data) {
+  if (!results) {
     return (
       <div className={classes.root}>
         <CircularProgress />
@@ -101,11 +101,11 @@ const SearchPage: NextPage = ({
     <Fragment>
       <Typography className={classes.typographyRoot} variant="h5">
         <strong>Results for: </strong>
-        {data.data["results-for"]}
+        {results.data["results-for"]}
       </Typography>
       <hr />
       <div className={classes.heroContainer}>
-        {data.data.results.slice(start, end).map(data => (
+        {results.data.results.slice(start, end).map(data => (
           <HeroCard key={data.id} className={classes.heroCard} hero={data} />
         ))}
       </div>

@@ -43,7 +43,7 @@ const Paginator = ({ size, onChange }: any) => {
 
 function mapStateToProps({ results }: any) {
   return {
-    size: results.data.data.results.length
+    size: results.data.results.length
   };
 }
 
