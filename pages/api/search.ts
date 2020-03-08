@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       `https://superheroapi.com/api/${API_KEY}/search/${search}`
     );
 
-    res.json({ data: response.data });
+    res.json(response.data);
   } catch (e) {
     res.status(500).json({ msg: "Error occured searching for superhero" });
   }

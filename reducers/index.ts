@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import search from "./search";
-import results from "./results";
+import payload from "./payload";
 import loading from "./loading";
 
 export default combineReducers({
   loading,
-  results,
+  payload,
   search
 });

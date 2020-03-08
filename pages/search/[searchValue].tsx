@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
-import { fetchResults } from "../../actions/shared";
+import { fetchPayload } from "../../actions/shared";
 import { newSearch } from "../../actions/search";
 import {
   CircularProgress,
@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchPage: NextPage = ({
   search,
-  results,
+  payload,
   loading,
-  fetchResults,
+  fetchPayload,
   newSearch
 }: any) => {
   const classes = useStyles();
@@ -61,14 +61,14 @@ const SearchPage: NextPage = ({
   const end = page * 20;
   const start = end - 20;
 
-  const response = results && results.data.response;
+  const response = payload && payload.response;
   const searchValue = router.query.searchValue;
 
-  if (!loading && !results) {
+  if (!loading && !payload) {
     if (!search) {
       newSearch(searchValue);
     } else {
-      fetchResults();
+      fetchPayload();
     }
   }
 
@@ -79,12 +79,12 @@ const SearchPage: NextPage = ({
         variant="h6"
         align="center"
       >
-        {results.data.error}
+        {payload.error}
       </Typography>
     );
   }
 
-  if (!results) {
+  if (!payload) {
     return (
       <div className={classes.root}>
         <CircularProgress />
@@ -101,11 +101,11 @@ const SearchPage: NextPage = ({
     <Fragment>
       <Typography className={classes.typographyRoot} variant="h5">
         <strong>Results for: </strong>
-        {results.data["results-for"]}
+        {payload["results-for"]}
       </Typography>
       <hr />
       <div className={classes.heroContainer}>
-        {results.data.results.slice(start, end).map(data => (
+        {payload.results.slice(start, end).map(data => (
           <HeroCard key={data.id} className={classes.heroCard} hero={data} />
         ))}
       </div>
@@ -120,5 +120,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   newSearch,
-  fetchResults
+  fetchPayload
 })(SearchPage);
