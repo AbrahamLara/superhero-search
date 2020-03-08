@@ -12,7 +12,7 @@ const useStyles = makeStyles(() =>
     pagination: {
       marginLeft: "auto",
       marginRight: "auto",
-      marginBottom: "20px",
+      marginBottom: 20,
       width: "fit-content"
     }
   })
@@ -22,8 +22,8 @@ const Paginator = ({ size, onChange }: any) => {
   const theme = useTheme();
   const notSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const classes = useStyles();
-  const remainder = size % 10;
-  let count = Math.floor(size - remainder) / 10;
+  const remainder = size % 20;
+  let count = Math.floor(size - remainder) / 20;
 
   if (remainder) {
     count += 1;

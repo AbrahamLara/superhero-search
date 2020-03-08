@@ -26,16 +26,23 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heroCard: {
       marginBottom: 15,
+      maxWidth: 300,
+      maxHeight: 300,
+      [theme.breakpoints.up("xs")]: {
+        margin: 10,
+        height: 300,
+        width: 300
+      },
       [theme.breakpoints.up("sm")]: {
-        margin: 10
+        margin: 10,
+        height: 200,
+        width: 200
       }
     },
     heroContainer: {
-      [theme.breakpoints.up("sm")]: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center"
-      }
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center"
     }
   })
 );
@@ -50,8 +57,8 @@ const SearchPage: NextPage = ({
 
   const [page, setPage] = useState(1);
   const router = useRouter();
-  const end = page * 10;
-  const start = end - 10;
+  const end = page * 20;
+  const start = end - 20;
 
   const data = results.data;
   const response = data && data.data.response;
@@ -92,7 +99,7 @@ const SearchPage: NextPage = ({
 
   return (
     <Fragment>
-      <Typography variant="h5">
+      <Typography className={classes.typographyRoot} variant="h5">
         <strong>Results for: </strong>
         {data.data["results-for"]}
       </Typography>

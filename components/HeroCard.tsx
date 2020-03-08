@@ -13,6 +13,8 @@ import { useState } from "react";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardAction: {
+      maxWidth: "inherit",
+      maxHeight: "inherit",
       position: "relative",
       height: "100%"
     },
@@ -24,20 +26,15 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "18pt"
     },
     cardMedia: {
-      [theme.breakpoints.up("sm")]: {
-        maxWidth: 300
-      }
+      maxWidth: "inherit",
+      maxHeight: "inherit"
     },
     defaultMedia: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       verticalAlign: "center",
-      height: 300,
-      fontSize: "1.5em",
-      [theme.breakpoints.up("sm")]: {
-        width: 300
-      }
+      fontSize: "1.5em"
     },
     defaultText: {
       width: 100,
@@ -62,7 +59,6 @@ const HeroCard = ({ hero, className }: any) => {
             classes={{ media: classes.cardMedia }}
             component="img"
             alt={hero.name}
-            height="300"
             image={hero.image.url}
             title={hero.name}
             onError={handleError}
