@@ -55,40 +55,34 @@ const SearchPage: NextPage = ({
   newSearch
 }: any) => {
   const classes = useStyles();
-
   const [page, setPage] = useState(1);
   const router = useRouter();
   const end = page * 20;
   const start = end - 20;
 
-  const response = payload && payload.response;
   const searchValue = router.query.searchValue;
 
   if (!loading && !payload) {
-    if (!search) {
-      newSearch(searchValue);
-    } else {
-      fetchPayload();
-    }
+    fetchPayload(searchValue);
   }
 
-  if (response === "error") {
+  if (loading) {
+    return (
+      <div className={classes.root}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (!payload || payload.error || payload.msg) {
     return (
       <Typography
         classes={{ root: classes.typographyRoot }}
         variant="h6"
         align="center"
       >
-        {payload.error}
+        No results to display.
       </Typography>
-    );
-  }
-
-  if (!payload) {
-    return (
-      <div className={classes.root}>
-        <CircularProgress />
-      </div>
     );
   }
 

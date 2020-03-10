@@ -12,12 +12,25 @@ import { Provider } from "react-redux";
 import { Snackbar, IconButton, Button } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import CloseIcon from "@material-ui/icons/Close";
-import { clearMessage } from "../actions/msg";
+import { clearMessage, setMessage } from "../actions/msg";
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
+function AlertAction(props) {
+  return (
+    <IconButton {...props}>
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+}
 class MyApp extends App<{ store: any }> {
+  unsubscribe: Function = null;
+  state = {
+    msg: ""
+  };
+
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
@@ -32,7 +45,23 @@ class MyApp extends App<{ store: any }> {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+
+    this.unsubscribe = this.props.store.subscribe(this.handleChange);
   }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  handleChange = () => {
+    const { store } = this.props;
+    let previousValue = this.state.msg;
+    let currentMsg = store.getState().msg;
+
+    if (previousValue !== currentMsg) {
+      this.setState({ msg: currentMsg });
+    }
+  };
 
   handleClose = (_, reason?: string) => {
     if (reason === "clickaway") {
@@ -44,8 +73,8 @@ class MyApp extends App<{ store: any }> {
 
   render() {
     const { Component, pageProps, store } = this.props;
-
-    const open = store.msg;
+    const msg = this.state.msg;
+    const open = Boolean(msg);
 
     return (
       <React.Fragment>
@@ -63,27 +92,20 @@ class MyApp extends App<{ store: any }> {
               <Snackbar
                 open={open}
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                action={
-                  <React.Fragment>
-                    <Button
-                      color="secondary"
-                      size="small"
-                      onClick={this.handleClose}
-                    >
-                      UNDO
-                    </Button>
-                    <IconButton
+              >
+                <Alert
+                  severity="error"
+                  action={
+                    <AlertAction
                       size="small"
                       aria-label="close"
                       color="inherit"
                       onClick={this.handleClose}
-                    >
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                  </React.Fragment>
-                }
-              >
-                <Alert severity="error">This is an error message!</Alert>
+                    />
+                  }
+                >
+                  {msg}
+                </Alert>
               </Snackbar>
               <Component {...pageProps} />
             </Layout>

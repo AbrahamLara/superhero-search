@@ -1,3 +1,4 @@
+import Router from "next/router";
 import SearchIcon from "@material-ui/icons/Search";
 import {
   makeStyles,
@@ -8,8 +9,8 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { newSearch, clearSearch } from "../actions/search";
-import { useRouter } from "next/router";
+import { newSearch } from "../actions/search";
+import { fetchPayload } from "../actions/shared";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,15 +54,13 @@ const SearchBar = props => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const inputRef: any = React.createRef();
-  const router = useRouter();
 
   const handleChange = (e: any) => setSearch(e.target.value);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     inputRef.current.blur();
     if (search) {
-      props.newSearch(search);
-      router.push(`/search/${search}`);
+      Router.push(`/search/${search}`);
       setSearch("");
     }
   };
@@ -93,6 +92,6 @@ function mapStateToProps({ search }) {
 }
 
 export default connect(mapStateToProps, {
-  clearSearch,
+  fetchPayload,
   newSearch
 })(SearchBar);

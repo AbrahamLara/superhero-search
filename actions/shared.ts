@@ -3,25 +3,26 @@ import { stopLoading, startLoading } from "./loading";
 import Axios from "axios";
 import { setMessage } from "./msg";
 
-export const fetchPayload = () => (dispatch, getState) => {
-  const name = getState().search;
-
-  if (!name) {
+export const fetchPayload = (search: string) => dispatch => {
+  if (!search) {
     return;
   }
 
   dispatch(startLoading());
 
-  Axios.get(`/api/search?name=${name}`)
+  Axios.get(`/api/search?name=${search}`)
     .then(data => {
       const payload = data.data;
-      if (payload.response === "error") {
+
+      if ("error" in payload) {
         dispatch(setMessage(payload.error));
-        return;
       }
 
       dispatch(loadPayload(payload));
     })
-    // TODO: Add catch method
+    .catch(({ response }) => {
+      dispatch(setMessage(response.data.msg));
+      dispatch(loadPayload(response.data));
+    })
     .finally(() => dispatch(stopLoading()));
 };

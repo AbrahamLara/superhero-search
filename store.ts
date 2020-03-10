@@ -4,7 +4,7 @@ import middleware from "./middleware";
 
 const initialState = {
   search: "",
-  results: null,
+  payload: null,
   loading: false,
   msg: ""
 };
