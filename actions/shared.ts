@@ -14,7 +14,7 @@ export const fetchPayload = (search: string) => dispatch => {
     .then(data => {
       const payload = data.data;
 
-      if ("error" in payload) {
+      if (payload.error) {
         dispatch(setMessage(payload.error));
       }
 
