@@ -21,8 +21,13 @@ export const fetchPayload = (search: string) => dispatch => {
       dispatch(loadPayload(payload));
     })
     .catch(({ response }) => {
-      dispatch(setMessage(response.data.msg));
-      dispatch(loadPayload(response.data));
+      try {
+        dispatch(setMessage(response.data.msg));
+        dispatch(loadPayload(response.data));
+      } catch (e) {
+        dispatch(setMessage("Error occured"));
+        dispatch(loadPayload({}));
+      }
     })
     .finally(() => dispatch(stopLoading()));
 };

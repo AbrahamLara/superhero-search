@@ -47,13 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchPage: NextPage = ({
-  search,
-  payload,
-  loading,
-  fetchPayload,
-  newSearch
-}: any) => {
+const SearchPage: NextPage = ({ payload, loading, fetchPayload }: any) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
   const router = useRouter();

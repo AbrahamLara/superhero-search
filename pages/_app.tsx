@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import { Snackbar, IconButton, Button } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import CloseIcon from "@material-ui/icons/Close";
-import { clearMessage, setMessage } from "../actions/msg";
+import { clearMessage } from "../actions/msg";
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
