@@ -58,9 +58,15 @@ const Hero: NextPage = (props: any) => {
     appearance,
     work,
     connections,
-    image
+    image,
+    msg,
+    error
   } = props.data;
   const classes = useStyles();
+
+  if (msg || error) {
+    return <div>{msg || error}</div>;
+  }
 
   return (
     <Box className={classes.box} display="flex" flexWrap="wrap">
@@ -149,7 +155,7 @@ const Hero: NextPage = (props: any) => {
 Hero.getInitialProps = async (ctx: NextPageContext) => {
   const id = ctx.query.id;
 
-  const res = await fetch(`http://localhost:3000/api/id/${id}`);
+  const res = await fetch(`http://${ctx.req.headers.host}/api/id/${id}`);
   const data = await res.json();
 
   return { data };
