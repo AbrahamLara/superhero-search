@@ -10,6 +10,7 @@ import {
   Box,
   LinearProgress
 } from "@material-ui/core";
+import { Fragment } from "react";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,7 +27,10 @@ const useStyles = makeStyles(() =>
       margin: "auto"
     },
     heroInfo: {
-      flex: 1
+      flex: 1,
+      "& > div:not(:last-child)": {
+        marginBottom: "20px"
+      }
     }
   })
 );
@@ -59,13 +63,15 @@ const Hero: NextPage = (props: any) => {
           <Typography variant="h4">Powerstats:</Typography>
           <Divider />
           {Object.keys(powerstats).map((key: string) => (
-            <Typography variant="h6" key={key}>
-              {key}:
+            <Fragment key={key}>
+              <Typography variant="subtitle1">
+                <strong>{key}:</strong>
+              </Typography>
               <LinearProgress
                 value={Number(powerstats[key])}
                 variant="determinate"
               />
-            </Typography>
+            </Fragment>
           ))}
         </div>
         <div>
@@ -79,8 +85,8 @@ const Hero: NextPage = (props: any) => {
             }
 
             return (
-              <Typography variant="h6" key={key}>
-                {key}: {text}
+              <Typography key={key} variant="subtitle1">
+                <strong>{key}:</strong> {text}
               </Typography>
             );
           })}
@@ -96,8 +102,8 @@ const Hero: NextPage = (props: any) => {
             }
 
             return (
-              <Typography variant="h6" key={key}>
-                {key}: {text}
+              <Typography key={key} variant="subtitle1">
+                <strong>{key}:</strong> {text}
               </Typography>
             );
           })}
@@ -106,8 +112,8 @@ const Hero: NextPage = (props: any) => {
           <Typography variant="h4">Work:</Typography>
           <Divider />
           {Object.keys(work).map((key: string) => (
-            <Typography variant="h6" key={key}>
-              {key}: {work[key]}
+            <Typography key={key} variant="subtitle1">
+              <strong>{key}:</strong> {work[key]}
             </Typography>
           ))}
         </div>
@@ -115,8 +121,8 @@ const Hero: NextPage = (props: any) => {
           <Typography variant="h4">Connections:</Typography>
           <Divider />
           {Object.keys(connections).map((key: string) => (
-            <Typography variant="h6" key={key}>
-              {key}: {connections[key]}
+            <Typography key={key} variant="subtitle1">
+              <strong>{key}:</strong> {connections[key]}
             </Typography>
           ))}
         </div>
