@@ -7,7 +7,8 @@ import {
   CardHeader,
   Typography,
   Divider,
-  Box
+  Box,
+  LinearProgress
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
@@ -31,7 +32,15 @@ const useStyles = makeStyles(() =>
 );
 
 const Hero: NextPage = (props: any) => {
-  const data = props.data;
+  const {
+    name,
+    powerstats,
+    biography,
+    appearance,
+    work,
+    connections,
+    image
+  } = props.data;
   const classes = useStyles();
 
   return (
@@ -39,22 +48,78 @@ const Hero: NextPage = (props: any) => {
       <aside style={{ width: "500px" }}>
         <Card className={classes.card}>
           <CardHeader
-            title={data.name}
+            title={name}
             classes={{ title: classes.cardHeaderTitle }}
           />
-          <img
-            className={classes.poster}
-            src={data.image.url}
-            alt={data.name}
-          />
+          <img className={classes.poster} src={image.url} alt={name} />
         </Card>
       </aside>
       <div className={classes.heroInfo}>
-        <Typography variant="h4">
-          <p>Powerstats:</p>
-        </Typography>
-        <Divider />
-        <label></label>
+        <div>
+          <Typography variant="h4">Powerstats:</Typography>
+          <Divider />
+          {Object.keys(powerstats).map((key: string) => (
+            <Typography variant="h6" key={key}>
+              {key}:
+              <LinearProgress
+                value={Number(powerstats[key])}
+                variant="determinate"
+              />
+            </Typography>
+          ))}
+        </div>
+        <div>
+          <Typography variant="h4">Biography:</Typography>
+          <Divider />
+          {Object.keys(biography).map((key: string) => {
+            let text = biography[key];
+
+            if (key === "aliases") {
+              text = text.join(", ");
+            }
+
+            return (
+              <Typography variant="h6" key={key}>
+                {key}: {text}
+              </Typography>
+            );
+          })}
+        </div>
+        <div>
+          <Typography variant="h4">Appearance:</Typography>
+          <Divider />
+          {Object.keys(appearance).map((key: string) => {
+            let text = appearance[key];
+
+            if (typeof text === "object") {
+              text = text.join("/");
+            }
+
+            return (
+              <Typography variant="h6" key={key}>
+                {key}: {text}
+              </Typography>
+            );
+          })}
+        </div>
+        <div>
+          <Typography variant="h4">Work:</Typography>
+          <Divider />
+          {Object.keys(work).map((key: string) => (
+            <Typography variant="h6" key={key}>
+              {key}: {work[key]}
+            </Typography>
+          ))}
+        </div>
+        <div>
+          <Typography variant="h4">Connections:</Typography>
+          <Divider />
+          {Object.keys(connections).map((key: string) => (
+            <Typography variant="h6" key={key}>
+              {key}: {connections[key]}
+            </Typography>
+          ))}
+        </div>
       </div>
     </Box>
   );
