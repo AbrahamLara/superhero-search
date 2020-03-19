@@ -8,18 +8,29 @@ import {
   Typography,
   Divider,
   Box,
-  LinearProgress
+  LinearProgress,
+  Theme
 } from "@material-ui/core";
 import { Fragment } from "react";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     box: {
       marginTop: "20px"
     },
+    aside: {
+      width: "100%",
+      position: "relative",
+      [theme.breakpoints.up("sm")]: {
+        width: "50%"
+      }
+    },
     card: {
       width: "fit-content",
-      margin: "auto"
+      margin: "auto",
+      [theme.breakpoints.up("sm")]: {
+        width: "90%"
+      }
     },
     cardHeaderTitle: {
       fontSize: "22pt",
@@ -27,7 +38,8 @@ const useStyles = makeStyles(() =>
     },
     poster: {
       display: "block",
-      margin: "auto"
+      margin: "auto",
+      width: "100%"
     },
     heroInfo: {
       flex: 1,
@@ -52,7 +64,7 @@ const Hero: NextPage = (props: any) => {
 
   return (
     <Box className={classes.box} display="flex" flexWrap="wrap">
-      <aside style={{ width: "500px" }}>
+      <aside className={classes.aside}>
         <Card className={classes.card}>
           <CardHeader
             title={name}
