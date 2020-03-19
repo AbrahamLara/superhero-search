@@ -65,7 +65,7 @@ export default function Layout(props: any) {
                   </Typography>
                 </Link>
               </NextLink>
-              <NextLink href="#">
+              <NextLink href="/about">
                 <Link classes={{ root: classes.linkDecRoot }} color="inherit">
                   <Typography>About</Typography>
                 </Link>
