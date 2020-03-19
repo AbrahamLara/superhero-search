@@ -14,6 +14,9 @@ import { Fragment } from "react";
 
 const useStyles = makeStyles(() =>
   createStyles({
+    box: {
+      marginTop: "20px"
+    },
     card: {
       width: "fit-content",
       margin: "auto"
@@ -48,7 +51,7 @@ const Hero: NextPage = (props: any) => {
   const classes = useStyles();
 
   return (
-    <Box display="flex" flexWrap="wrap">
+    <Box className={classes.box} display="flex" flexWrap="wrap">
       <aside style={{ width: "500px" }}>
         <Card className={classes.card}>
           <CardHeader
