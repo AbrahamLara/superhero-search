@@ -12,9 +12,8 @@ This web app allows the users to search and find information on their favorite s
 ## Setup
 
 - `npm clone https://github.com/AbrahamLara/superhero-search`
+- `cd superhero-search`
+- Create a `.env` file in the root directory of this project
+  - In this file include: `SUPERHERO_API_KEY=YOUR_API_KEY`
 - `npm install`
-- Create `.env` in the root directory of the project
-
-  - write `SUPERHERO_API_KEY="YOUR_API_KEY"` in the file
-
 - `npm run dev`
