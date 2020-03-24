@@ -65,11 +65,13 @@ export default function Layout(props: any) {
                   </Typography>
                 </Link>
               </NextLink>
-              <NextLink href="/about">
-                <Link classes={{ root: classes.linkDecRoot }} color="inherit">
-                  <Typography>About</Typography>
-                </Link>
-              </NextLink>
+              <Link
+                href="https://github.com/AbrahamLara/superhero-search"
+                classes={{ root: classes.linkDecRoot }}
+                color="inherit"
+              >
+                <Typography>About</Typography>
+              </Link>
             </div>
             <div className={classes.searchContainer}>
               <SearchBar />
